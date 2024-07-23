@@ -3,6 +3,7 @@ package com.example.fullstack_study_boostcourse;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,9 +25,10 @@ public class ViewController {
     }
 
     @GetMapping("/aboutme/today")
-    @ResponseBody
-    public String today() {
+    public String today(Model model) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd h:m");
-        return "현재시간 : " + LocalDateTime.now().format(dateTimeFormatter);
+        String today = LocalDateTime.now().format(dateTimeFormatter);
+        model.addAttribute("today", today);
+        return "today.html";
     }
 }
