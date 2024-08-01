@@ -1,4 +1,4 @@
-package com.example.fullstack_study_boostcourse;
+package com.example.fullstack_study_boostcourse.jdbc_study;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;

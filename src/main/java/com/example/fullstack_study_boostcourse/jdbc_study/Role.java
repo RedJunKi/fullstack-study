@@ -1,4 +1,4 @@
-package com.example.fullstack_study_boostcourse;
+package com.example.fullstack_study_boostcourse.jdbc_study;
 
 public class Role {
     private int roleId;

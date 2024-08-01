@@ -1,11 +1,11 @@
 package com.example.fullstack_study_boostcourse;
 
+import com.example.fullstack_study_boostcourse.jdbc_study.RoleByIdServlet;
+import com.example.fullstack_study_boostcourse.jdbc_study.RolesServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
-
-import java.util.List;
 
 @SpringBootApplication
 public class FullstackStudyBoostcourseApplication {

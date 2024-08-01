@@ -1,4 +1,4 @@
-package com.example.fullstack_study_boostcourse;
+package com.example.fullstack_study_boostcourse.project_a;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
