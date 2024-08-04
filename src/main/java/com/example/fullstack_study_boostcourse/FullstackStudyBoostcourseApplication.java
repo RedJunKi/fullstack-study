@@ -1,26 +1,15 @@
 package com.example.fullstack_study_boostcourse;
 
-import com.example.fullstack_study_boostcourse.jdbc_study.RoleByIdServlet;
-import com.example.fullstack_study_boostcourse.jdbc_study.RolesServlet;
+import com.example.fullstack_study_boostcourse.springmvc_study.WebMvcContextConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
+@Import(WebMvcContextConfiguration.class)
 public class FullstackStudyBoostcourseApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FullstackStudyBoostcourseApplication.class, args);
-	}
-
-	@Bean
-	public ServletRegistrationBean<RolesServlet> roleServletRegistration() {
-		return new ServletRegistrationBean<>(new RolesServlet(), "/roles");
-	}
-
-	@Bean
-	public ServletRegistrationBean<RoleByIdServlet> roleByIdServletServletRegistrationBean() {
-		return new ServletRegistrationBean<>(new RoleByIdServlet(), "/roles/*");
 	}
 }
