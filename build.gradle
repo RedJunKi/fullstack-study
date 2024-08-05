@@ -25,11 +25,18 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
-	implementation group: 'org.thymeleaf', name: 'thymeleaf', version: '3.1.2.RELEASE'
+	implementation group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.12.0'
+	implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.49'
+	implementation group: 'jakarta.servlet.jsp.jstl', name: 'jakarta.servlet.jsp.jstl-api', version: '3.0.0'
+	implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl', version: '3.0.1'
+	compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api', version: '6.0.0'
+	implementation group: 'jakarta.el', name: 'jakarta.el-api', version: '3.0.3'
+
+
 	implementation group: 'org.springframework', name: 'spring-jdbc', version: '6.1.10'
 	implementation group: 'org.springframework', name: 'spring-tx', version: '6.1.10'
-	implementation 'org.apache.commons:commons-dbcp2:2.9.0'
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
