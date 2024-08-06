@@ -17,7 +17,7 @@ import java.util.Map;
 
 import static com.example.fullstack_study_boostcourse.guestbook.dao.GuestbookDaoSqls.*;
 
-@Repository
+//@Repository
 public class GuestbookDao {
     private NamedParameterJdbcTemplate jdbc;
     private SimpleJdbcInsert insertAction;

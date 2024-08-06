@@ -3,7 +3,7 @@ package com.example.fullstack_study_boostcourse.guestbook.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
+//@Controller
 public class HomeController {
 
 }

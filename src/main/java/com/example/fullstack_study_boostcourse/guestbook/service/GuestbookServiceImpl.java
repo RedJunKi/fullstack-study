@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
-@Service
-@Transactional
+//@Service
+//@Transactional
 public class GuestbookServiceImpl implements GuestbookService {
 
     @Autowired

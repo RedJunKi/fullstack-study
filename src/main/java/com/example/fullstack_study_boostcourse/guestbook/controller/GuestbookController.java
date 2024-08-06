@@ -16,7 +16,7 @@ import java.util.List;
 
 import static com.example.fullstack_study_boostcourse.guestbook.service.GuestbookService.*;
 
-@Controller
+//@Controller
 public class GuestbookController {
     @Autowired
     private GuestbookService guestbookService;
