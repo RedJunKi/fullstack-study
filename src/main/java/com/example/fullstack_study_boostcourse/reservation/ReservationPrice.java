@@ -1,10 +1,10 @@
 package com.example.fullstack_study_boostcourse.reservation;
 
 public class ReservationPrice {
-    private Integer count;
-    private Integer productPriceId;
-    private Integer reservationInfoId;
     private Integer reservationInfoPriceId;
+    private Integer reservationInfoId;
+    private Integer productPriceId;
+    private Integer count;
 
     public ReservationPrice(Integer count, Integer productPriceId, Integer reservationInfoId, Integer reservationInfoPriceId) {
         this.count = count;

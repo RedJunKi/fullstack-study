@@ -19,16 +19,14 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<ProductResponse> getAllProducts(@RequestParam(value = "categoryId", required = false) Integer categoryId,
                                         @RequestParam(value = "start", required = false, defaultValue = "0") int start) {
-        List<Product> products;
+        ProductResponse result;
 
         if (categoryId == null) {
-            products = productService.getAllProducts(start);
+            result = productService.getAllProducts(start);
         } else {
-            products = productService.getAllProductsByCategory(categoryId, start);
+            result = productService.getAllProductsByCategory(categoryId, start);
 
         }
-
-        ProductResponse result = new ProductResponse(products);
         return ResponseEntity.ok(result);
     }
 

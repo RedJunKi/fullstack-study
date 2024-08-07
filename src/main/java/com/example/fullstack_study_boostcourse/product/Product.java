@@ -1,11 +1,14 @@
 package com.example.fullstack_study_boostcourse.product;
 
+import lombok.Builder;
+
+@Builder
 public class Product {
     private Integer displayInfoId;
+    private Integer productId;
+    private String productDescription;
     private String placeName;
     private String productContent;
-    private String productDescription;
-    private Integer productId;
     private String productImageUrl;
 
     public Integer getDisplayInfoId() {

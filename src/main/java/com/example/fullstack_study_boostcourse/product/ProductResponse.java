@@ -3,8 +3,8 @@ package com.example.fullstack_study_boostcourse.product;
 import java.util.List;
 
 public class ProductResponse {
-    private List<Product> products;
     private Integer totalCount;
+    private List<Product> products;
 
     public ProductResponse(List<Product> products) {
         this.products = products;

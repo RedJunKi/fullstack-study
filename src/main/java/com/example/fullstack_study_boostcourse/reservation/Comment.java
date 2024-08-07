@@ -7,35 +7,35 @@ import java.util.List;
 
 @Builder
 public class Comment {
-    private String comment;
     private Integer commentId;
-    private List<CommentImage> commentImages;
+    private Integer productId;
+    private Integer reservationInfoId;
+    private BigDecimal score;
+    private String comment;
+    private String reservationName;
+    private String reservationEmail;
+    private String reservationTelephone;
+    private String reservationDate;
     private String createDate;
     private String modifyDate;
-    private Integer productId;
-    private String reservationDate;
-    private String reservationEmail;
-    private Integer reservationInfoId;
-    private String reservationName;
-    private String reservationTelephone;
-    private BigDecimal score;
+    private List<CommentImage> commentImages;
 
     public Comment() {
     }
 
-    public Comment(String comment, Integer commentId, List<CommentImage> commentImages, String createDate, String modifyDate, Integer productId, String reservationDate, String reservationEmail, Integer reservationInfoId, String reservationName, String reservationTelephone, BigDecimal score) {
-        this.comment = comment;
+    public Comment(Integer commentId, Integer productId, Integer reservationInfoId, BigDecimal score, String comment, String reservationName, String reservationEmail, String reservationTelephone, String reservationDate, String createDate, String modifyDate, List<CommentImage> commentImages) {
         this.commentId = commentId;
-        this.commentImages = commentImages;
+        this.productId = productId;
+        this.reservationInfoId = reservationInfoId;
+        this.score = score;
+        this.comment = comment;
+        this.reservationName = reservationName;
+        this.reservationEmail = reservationEmail;
+        this.reservationTelephone = reservationTelephone;
+        this.reservationDate = reservationDate;
         this.createDate = createDate;
         this.modifyDate = modifyDate;
-        this.productId = productId;
-        this.reservationDate = reservationDate;
-        this.reservationEmail = reservationEmail;
-        this.reservationInfoId = reservationInfoId;
-        this.reservationName = reservationName;
-        this.reservationTelephone = reservationTelephone;
-        this.score = score;
+        this.commentImages = commentImages;
     }
 
     public String getComment() {

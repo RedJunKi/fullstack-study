@@ -1,27 +1,27 @@
 package com.example.fullstack_study_boostcourse.reservation;
 
 public class CommentImage {
-    private String contentType;
-    private String createDate;
-    private boolean deleteFlag;
-    private Integer fileId;
-    private String fileName;
     private Integer imageId;
-    private String modifyDate;
     private Integer reservationInfoId;
     private Integer reservationUserCommentId;
+    private Integer fileId;
+    private String fileName;
+    private String contentType;
+    private Boolean deleteFlag;
+    private String createDate;
+    private String modifyDate;
     private String saveFileName;
 
-    public CommentImage(String contentType, String createDate, boolean deleteFlag, Integer fileId, String fileName, Integer imageId, String modifyDate, Integer reservationInfoId, Integer reservationUserCommentId, String saveFileName) {
-        this.contentType = contentType;
-        this.createDate = createDate;
-        this.deleteFlag = deleteFlag;
-        this.fileId = fileId;
-        this.fileName = fileName;
+    public CommentImage(Integer imageId, Integer reservationInfoId, Integer reservationUserCommentId, Integer fileId, String fileName, String contentType, Boolean deleteFlag, String createDate, String modifyDate, String saveFileName) {
         this.imageId = imageId;
-        this.modifyDate = modifyDate;
         this.reservationInfoId = reservationInfoId;
         this.reservationUserCommentId = reservationUserCommentId;
+        this.fileId = fileId;
+        this.fileName = fileName;
+        this.contentType = contentType;
+        this.deleteFlag = deleteFlag;
+        this.createDate = createDate;
+        this.modifyDate = modifyDate;
         this.saveFileName = saveFileName;
     }
 
@@ -44,11 +44,11 @@ public class CommentImage {
         this.createDate = createDate;
     }
 
-    public boolean isDeleteFlag() {
+    public Boolean getDeleteFlag() {
         return deleteFlag;
     }
 
-    public void setDeleteFlag(boolean deleteFlag) {
+    public void setDeleteFlag(Boolean deleteFlag) {
         this.deleteFlag = deleteFlag;
     }
 

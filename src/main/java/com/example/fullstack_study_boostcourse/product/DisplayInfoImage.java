@@ -1,15 +1,15 @@
 package com.example.fullstack_study_boostcourse.product;
 
 public class DisplayInfoImage {
-    private String contentType;
-    private String createDate;
-    private boolean deleteFlag;
-    private Integer displayInfoId;
     private Integer displayInfoImageId;
+    private Integer displayInfoId;
     private Integer fileId;
     private String fileName;
-    private String modifyDate;
     private String saveFileName;
+    private String contentType;
+    private boolean deleteFlag;
+    private String createDate;
+    private String modifyDate;
 
     public DisplayInfoImage() {
     }

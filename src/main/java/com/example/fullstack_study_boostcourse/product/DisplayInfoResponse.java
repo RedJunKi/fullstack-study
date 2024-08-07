@@ -9,22 +9,22 @@ import java.util.List;
 
 @Builder
 public class DisplayInfoResponse {
-    private BigDecimal averageScore;
-    private List<Comment> comments;
     private DisplayInfo displayInfo;
-    private DisplayInfoImage displayInfoImage;
     private List<ProductImage> productImages;
+    private DisplayInfoImage displayInfoImage;
+    private List<Comment> comments;
+    private BigDecimal averageScore;
     private List<ProductPrice> productPrices;
 
     public DisplayInfoResponse() {
     }
 
-    public DisplayInfoResponse(BigDecimal averageScore, List<Comment> comments, DisplayInfo displayInfo, DisplayInfoImage displayInfoImage, List<ProductImage> productImages, List<ProductPrice> productPrices) {
-        this.averageScore = averageScore;
-        this.comments = comments;
+    public DisplayInfoResponse(DisplayInfo displayInfo, List<ProductImage> productImages, DisplayInfoImage displayInfoImage, List<Comment> comments, BigDecimal averageScore, List<ProductPrice> productPrices) {
         this.displayInfo = displayInfo;
-        this.displayInfoImage = displayInfoImage;
         this.productImages = productImages;
+        this.displayInfoImage = displayInfoImage;
+        this.comments = comments;
+        this.averageScore = averageScore;
         this.productPrices = productPrices;
     }
 

@@ -13,24 +13,39 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
 
     @Override
-    public List<Product> getAllProductsByCategory(Integer categoryId, Integer start) {
+    public ProductResponse getAllProductsByCategory(Integer categoryId, Integer start) {
+        ProductResponse result = new ProductResponse();
 
-        return productDao.selectAllProductsByCategory(categoryId, start, LIMIT);
+        List<Product> products = productDao.selectAllProductsByCategory(categoryId, start, LIMIT);
+        result.setProducts(products);
+        result.setTotalCount(getDisplayInfoCountByCategory(categoryId));
 
+        return result;
     }
 
     @Override
-    public DisplayInfoResponse getDisplayInfoById(Integer id) {
-        return productDao.selectDisplayInfoById(id);
+    public ProductResponse getAllProducts(int start) {
+        ProductResponse result = new ProductResponse();
+
+        List<Product> products = productDao.selectAllProducts(start, LIMIT);
+        result.setProducts(products);
+        result.setTotalCount(getAllDisplayInfoCount());
+
+        return result;
     }
 
     @Override
-    public int getCount() {
-        return productDao.getCount();
+    public DisplayInfoResponse getDisplayInfoById(Integer displayInfoId) {
+        return productDao.selectDisplayInfoById(displayInfoId);
     }
 
     @Override
-    public List<Product> getAllProducts(int start) {
-        return productDao.selectAllProducts(start, LIMIT);
+    public int getAllDisplayInfoCount() {
+        return productDao.getAllDisplayInfoCount();
+    }
+
+    @Override
+    public int getDisplayInfoCountByCategory(int categoryId) {
+        return productDao.getDisplayInfoCountByCategory(categoryId);
     }
 }

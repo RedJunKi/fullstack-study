@@ -3,13 +3,13 @@ package com.example.fullstack_study_boostcourse.product;
 import java.math.BigDecimal;
 
 public class ProductPrice {
-    private String createDate;
-    private BigDecimal discountRate;
-    private String modifyDate;
-    private Integer price;
-    private String priceTypeName;
-    private Integer productId;
     private Integer productPriceId;
+    private Integer productId;
+    private String priceTypeName;
+    private Integer price;
+    private BigDecimal discountRate;
+    private String createDate;
+    private String modifyDate;
 
     public ProductPrice(String createDate, BigDecimal discountRate, String modifyDate, Integer price, String priceTypeName, Integer productId, Integer productPriceId) {
         this.createDate = createDate;

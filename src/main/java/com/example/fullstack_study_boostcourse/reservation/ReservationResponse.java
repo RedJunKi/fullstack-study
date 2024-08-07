@@ -1,17 +1,19 @@
 package com.example.fullstack_study_boostcourse.reservation;
 
+import lombok.Builder;
+
 public class ReservationResponse {
-    private boolean cancelYn;
-    private String createDate;
-    private Integer displayInfoId;
-    private String modifyDate;
-    private ReservationPrice prices;
-    private Integer productId;
-    private String reservationDate;
-    private String reservationEmail;
     private Integer reservationInfoId;
+    private Integer productId;
+    private Integer displayInfoId;
     private String reservationName;
     private String reservationTelephone;
+    private String reservationEmail;
+    private String reservationDate;
+    private boolean cancelYn;
+    private String createDate;
+    private String modifyDate;
+    private ReservationPrice prices;
 
     public ReservationResponse(boolean cancelYn, String createDate, Integer displayInfoId, String modifyDate, ReservationPrice prices, Integer productId, String reservationDate, String reservationEmail, Integer reservationInfoId, String reservationName, String reservationTelephone) {
         this.cancelYn = cancelYn;
