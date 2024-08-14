@@ -21,7 +21,7 @@ public class ProductController {
                                         @RequestParam(value = "start", required = false, defaultValue = "0") int start) {
         ProductResponse result;
 
-        if (categoryId == null) {
+        if (categoryId == null || categoryId == 0) {
             result = productService.getAllProducts(start);
         } else {
             result = productService.getAllProductsByCategory(categoryId, start);
