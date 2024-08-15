@@ -3145,8 +3145,9 @@ button {
     zoom:1}
 
 .event .section_event_tab .event_tab_lst {
+    display: flex;
     overflow-y: hidden;
-    overflow-x: auto;
+    overflow-x: hidden;
     position: relative;
     padding-left: 15px;
     padding-right: 15px;

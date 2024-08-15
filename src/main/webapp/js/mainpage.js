@@ -10,13 +10,13 @@ function initViewReservationButton() {
 	let viewReservationButton = document.querySelector("#check-reservation-by-email");
 	if (viewReservationButton) {
 		viewReservationButton.addEventListener("click", function() {
-			location.href= "/naverbooking/myreservation";
+			location.href= "/my-reservation";
 		})
 		return;
 	}
 	viewReservationButton = document.querySelector("#check-reservation-without-email");
 	viewReservationButton.addEventListener("click", function () {
-		location.href= "/naverbooking/bookinglogin";
+		location.href= "/booking-login";
 	})
 }
 
@@ -38,6 +38,9 @@ function loadPromotionList(getPromotionList) {
                 promotionSlider.innerHTML += promotionItem;
             });
 
+            let promotionItem = promotionHtmlTemplate.replace("{productImageUrl}", promotionList[0].productImageUrl);
+            promotionSlider.innerHTML += promotionItem;
+
 		    getPromotionList();
 	    } else {
 	        alert('서버와의 연결이 되지 않습니다');
@@ -57,7 +60,7 @@ function startPromotionSlider() {
 
 	setInterval(function() {
 		promotionSlider.style.transition = "0.3s";
-		promotionSlider.style.transform = "translate(-" + (width * currentIndex + 1) + "px, 0px)";
+		promotionSlider.style.transform = "translate(-" + (width * currentIndex) + "px, 0px)";
 		currentIndex += 1;
 
 		if(currentIndex === promotionListLength) {
@@ -116,21 +119,21 @@ function loadProduct() {
 	httpRequest.onload = function() {
 	    if (httpRequest.status === 200) {
 		    let addedProductList = JSON.parse(httpRequest.responseText);
+		    hideMoreItemButton();
+
 		    if (currentItemCount + addedProductList.products.length < addedProductList.totalCount) {
 		    	showMoreItemButton();
 		    }
 
-		    if (currentItemCount + addedProductList.products.length == addedProductList.totalCount) {
-		    	hideMoreItemButton();
-		    }
 
 		    for (let pi = 0; pi < addedProductList.products.length; pi++) {
-		    	let addedProduct = productHtmlTemplate.replace("{id}", addedProductList.products[pi].productId)
-		    										.replace("{description}", addedProductList.products[pi].productDescription)
-		    										.replace("{altDescription}",addedProductList.products[pi].productDescription)
-		    										.replace("{placeName}", addedProductList.products[pi].placeName)
-		    										.replace("{productImageUrl}", addedProductList.products[pi].productImageUrl)
-		    										.replace("{content}",addedProductList.products[pi].productContent);
+		    	let addedProduct = productHtmlTemplate.slice()
+                        .replace("{id}", addedProductList.products[pi].displayInfoId)
+                        .replace("{description}", addedProductList.products[pi].productDescription)
+                        .replace("{altDescription}", addedProductList.products[pi].productDescription)
+                        .replace("{placeName}", addedProductList.products[pi].placeName)
+                        .replace("{productImageUrl}", addedProductList.products[pi].productImageUrl)
+                        .replace("{content}", addedProductList.products[pi].productContent);
 
 		    	if (pi % 2 == 0) {
 		    		productLeftContainer.innerHTML += addedProduct;
