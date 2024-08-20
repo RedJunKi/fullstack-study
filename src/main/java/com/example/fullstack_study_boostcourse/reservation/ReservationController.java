@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -32,17 +33,24 @@ public class ReservationController {
 
     @PostMapping("/{reservationInfoId}/comments")
     public ResponseEntity<CommentResponse> addCommentToReservation(@PathVariable("reservationInfoId") int reservationInfoId,
-                                                                   @RequestParam("productId") int productId,
-                                                                   @RequestParam("comment") String comment,
-                                                                   @RequestParam("score") BigDecimal score) {
-        CommentResponse commentResponse = reservationService.addCommentToReservation(reservationInfoId, productId, comment, score);
+                                                                   @RequestBody CommentParamDto commentParamDto) {
+
+        CommentResponse commentResponse = reservationService
+                .addCommentToReservation(reservationInfoId, commentParamDto.getProductId(), commentParamDto.getComment(), commentParamDto.getScore());
 
         return ResponseEntity.ok(commentResponse);
     }
+//
+//    @PostMapping("/api/reservations/{reservationInfoId}/image")
+//    public int addImageFile(@PathVariable int reservationInfoId, @RequestParam(value = "imageFile") MultipartFile file) {
+//        int fileInfoId = commentService.insertFileInfo(file, commentService.createFileName(file));
+//        commentService.addImage(reservationInfoId, file);
+//        return fileInfoId;
+//    }
 
-    @DeleteMapping("/{reservationId}")
+    @PutMapping("/{reservationId}")
     public ResponseEntity<ReservationResponse> deleteReservation(@PathVariable("reservationId") int id) {
-        ReservationResponse result = reservationService.deleteReservation(id);
+        ReservationResponse result = reservationService.cancelReservation(id);
         return ResponseEntity.ok(result);
     }
 }

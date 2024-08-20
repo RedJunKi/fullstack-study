@@ -7,6 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -48,19 +51,17 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     private static String getCurrentDate() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String currentDate = formatter.format(new Date());
-        return currentDate;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+        return LocalDateTime.now().format(dateTimeFormatter);
     }
 
     @Override
-    public ReservationResponse deleteReservation(int reservationId) {
+    public ReservationResponse cancelReservation(int reservationId) {
         ReservationInfo reservationInfo = reservationDao.selectByReservationId(reservationId);
-        ReservationResponse result = new ReservationResponse(reservationInfo);
-        result.setCancelYn(true);
+        reservationInfo.setCancelYn(true);
+        reservationDao.updateReservation(reservationInfo);
 
-        reservationDao.deleteReservation(reservationId);
-        return result;
+        return new ReservationResponse(reservationInfo);
     }
 
     @Override

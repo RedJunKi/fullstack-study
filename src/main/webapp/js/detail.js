@@ -14,7 +14,7 @@ function initViewReservationButton() {
     }
     viewReservationButton = document.querySelector('#check-reservation-without-email');
     viewReservationButton.addEventListener("click", function() {
-        location.href="/booking-login";
+        location.href="/login";
     });
 }
 
@@ -63,12 +63,12 @@ const productImageSlider = {
         }
         slider.innerHTML = bindTemplate(imageData);
 
-        if (displayInfoDetail.productImages.length > 1) {
-            let firstImage = slider.children[0].cloneNode(true);
-            let secondImage = slider.children[1].cloneNode(true);
-            slider.appendChild(firstImage);
-            slider.insertBefore(secondImage, slider.firstChild);
-        }
+//        if (displayInfoDetail.productImages.length > 1) {
+//            let firstImage = slider.children[0].cloneNode(true);
+//            let secondImage = slider.children[1].cloneNode(true);
+//            slider.appendChild(firstImage);
+//            slider.insertBefore(secondImage, slider.firstChild);
+//        }
     },
 
     initImageSlider : function(displayInfoDetail) {
@@ -229,7 +229,14 @@ let productReviewContainer = {
     },
 
     initReviewBox(displayInfoDetail) {
+
+
         let reviewListBox = document.querySelector("#review-list-box");
+        if (displayInfoDetail.comments.length === 0) {
+            reviewListBox.remove();
+            return
+        }
+
         let reviewTemplate = document.querySelector("#comment-item-template").innerHTML;
         let reviewBindTemplate = Handlebars.compile(reviewTemplate);
         const MAX_REVIEW_COUNT = 3;
@@ -241,13 +248,14 @@ let productReviewContainer = {
 
         Handlebars.registerHelper('floatScore', function(score) {
         			return score.toFixed(1);
-        		});
+        });
 
-        		Handlebars.registerHelper('formatDate', function(date) {
-        			return date.split(" ")[0];
-        		});
+        Handlebars.registerHelper('formatDate', function(date) {
+            date = date.split(" ")[0];
+            return date.replace(/[-]/g, ".")
+        });
 
-        		reviewListBox.innerHTML = reviewBindTemplate(reviewData);
+        reviewListBox.innerHTML = reviewBindTemplate(reviewData);
     },
 
     initShowMoreReviewButton(displayInfoDetail) {

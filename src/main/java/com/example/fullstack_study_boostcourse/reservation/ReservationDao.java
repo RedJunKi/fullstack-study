@@ -109,7 +109,7 @@ public class ReservationDao {
     }
 
     public int updateReservation(ReservationInfo reservationInfo) {
-        String sql = "UPDATE reservation_info SET display_info = :displayInfo, total_price = :totalPrice WHERE id = :reservationInfoId";
+        String sql = "UPDATE reservation_info SET cancel_flag = :cancelYn WHERE id = :reservationInfoId";
         SqlParameterSource params = new BeanPropertySqlParameterSource(reservationInfo);
 
         return jdbc.update(sql, params);

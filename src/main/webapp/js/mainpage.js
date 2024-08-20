@@ -10,13 +10,13 @@ function initViewReservationButton() {
 	let viewReservationButton = document.querySelector("#check-reservation-by-email");
 	if (viewReservationButton) {
 		viewReservationButton.addEventListener("click", function() {
-			location.href= "/my-reservation";
+			location.href= "/myreservation";
 		})
 		return;
 	}
 	viewReservationButton = document.querySelector("#check-reservation-without-email");
 	viewReservationButton.addEventListener("click", function () {
-		location.href= "/booking-login";
+		location.href= "/login";
 	})
 }
 

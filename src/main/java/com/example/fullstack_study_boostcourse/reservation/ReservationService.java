@@ -8,7 +8,7 @@ public interface ReservationService {
 
     ReservationResponse addReservation(ReservationParam param);
 
-    ReservationResponse deleteReservation(int reservationId);
+    ReservationResponse cancelReservation(int reservationId);
 
     CommentResponse addCommentToReservation(int reservationInfoId, int productId, String comment, BigDecimal score);
 }
