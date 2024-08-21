@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -23,6 +24,8 @@ public class ReservationDao {
     private NamedParameterJdbcTemplate jdbc;
     private SimpleJdbcInsert insertAction;
     private SimpleJdbcInsert commentInsertAction;
+    private SimpleJdbcInsert fileInfoInsertAction;
+    private SimpleJdbcInsert reservationUserCommentImageInsertAction;
     private RowMapper<DisplayInfo> displayInfoRowMapper = BeanPropertyRowMapper.newInstance(DisplayInfo.class);
 
     public ReservationDao(DataSource dataSource) {
@@ -32,6 +35,12 @@ public class ReservationDao {
                 .usingGeneratedKeyColumns("id");
         this.commentInsertAction = new SimpleJdbcInsert(dataSource)
                 .withTableName("reservation_user_comment")
+                .usingGeneratedKeyColumns("id");
+        this.fileInfoInsertAction = new SimpleJdbcInsert(dataSource)
+                .withTableName("file_info")
+                .usingGeneratedKeyColumns("id");
+        this.reservationUserCommentImageInsertAction = new SimpleJdbcInsert(dataSource)
+                .withTableName("reservation_user_comment_image")
                 .usingGeneratedKeyColumns("id");
     }
 
@@ -158,6 +167,34 @@ public class ReservationDao {
 
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource(params);
         return commentInsertAction.executeAndReturnKey(sqlParameterSource).longValue();
+    }
+
+    public long insertFileInfo(MultipartFile file, String filename, String saveFilename) {
+//        String sql = "INSERT INTO file_info (file_name, save_file_name, content_type, delete_flag, create_date, modify_date) " +
+//                "VALUE (:fileName, :saveFileName, :contentType, :deleteFlag, now(), now())";
+
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("contentType", file.getContentType());
+        params.put("fileName", filename);
+        params.put("saveFileName", saveFilename);
+        params.put("deleteFlag", false);
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource(params);
+
+        return fileInfoInsertAction.executeAndReturnKey(sqlParameterSource).longValue();
+    }
+
+    public void insertReservationUserCommentImage(int reservationInfoId, long fileInfoId, int commentId) {
+//        String sql = "INSERT INTO reservation_user_comment_image (reservation_info_id, reservation_user_comment_id, file_id) " +
+//                "VALUES (:reservationInfoId, :commentId, :fileInfoId)";
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("reservationInfoId", reservationInfoId);
+        params.put("fileId", fileInfoId);
+        params.put("reservationUserCommentId", commentId);
+
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource(params);
+        reservationUserCommentImageInsertAction.executeAndReturnKey(sqlParameterSource);
     }
 
     private static class ReservationRowMapper implements RowMapper<ReservationInfo> {

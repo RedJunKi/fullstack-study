@@ -82,7 +82,7 @@ ReviewWriteInitializer.prototype = {
             let inputLength = $(this).val().length;
             $("#text-counter").text(inputLength);
 
-            if (inputLength > 400 || inputLength === 0) {
+            if (inputLength > 400 || inputLength < 5) {
                 btn.classList.add("disable");
             } else {
                 btn.classList.remove("disable");
@@ -151,7 +151,7 @@ SubmitButtonInitializer.prototype = {
         submitButton.addEventListener("click", function(event) {
 
             if (submitButton.classList.contains("disable")) {
-                alert("댓글은 1글자 이상 400글자 이하로 입력해주세요.")
+                alert("댓글은 5글자 이상 400글자 이하로 입력해주세요.")
                 return
             }
 
@@ -162,35 +162,43 @@ SubmitButtonInitializer.prototype = {
 
     uploadComment : function(reservationInfoId) {
         let photo = document.getElementById("reviewImageFileOpenInput").files[0];
+        let self = this;
 
-        if (photo) {
-            let httpRequest = new XMLHttpRequest();
-            let formData = new FormData();
-            formData.append("imageFile", photo);
+        let uploadTextDataCallback = function(commentId) {
+            if (photo) {
+                let httpRequest = new XMLHttpRequest();
+                let formData = new FormData();
+                formData.append("imageFile", photo);
+                formData.append("commentId", commentId);
 
-            httpRequest.onreadystatechange = function() {
-                if (httpRequest.readyState === XMLHttpRequest.DONE && httpRequest.status === 200) {
-                    let fileId = this.responseText;
-                    SubmitButtonInitializer.prototype.uploadTextData(reservationInfoId, fileId);
-                } else if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                    alert("이미지를 전송하는데 실패하였습니다.");
+                httpRequest.onreadystatechange = function() {
+                    if (httpRequest.readyState === XMLHttpRequest.DONE && httpRequest.status === 200) {
+                        alert("리뷰를 등록하였습니다.");
+                        window.location.href = '/myreservation';
+                    } else if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                        alert("이미지를 전송하는데 실패하였습니다.");
+                    }
                 }
+
+                httpRequest.open("POST", "/api/reservations/" + reservationInfoId + "/image");
+                httpRequest.send(formData);
+            } else {
+                alert("리뷰를 등록하였습니다.");
+                window.location.href = '/myreservation';
             }
-            httpRequest.open("POST", "/api/reservation/" + reservationInfoId + "/image");
-            httpRequest.send(formData);
-        } else {
-            SubmitButtonInitializer.prototype.uploadTextData(reservationInfoId, null);
-        }
+        };
+            self.uploadTextData(reservationInfoId, null, uploadTextDataCallback);
     },
 
-    uploadTextData : function(reservationInfoId, fileId) {
+    uploadTextData : function(reservationInfoId, fileId, callback) {
         let commentParamDto = CommentParamFactory.prototype.getCommentParamDto(reservationInfoId, fileId);
         let httpRequest = new XMLHttpRequest();
 
         httpRequest.onreadystatechange = function() {
             if (httpRequest.readyState === XMLHttpRequest.DONE && httpRequest.status === 200) {
-                alert("리뷰를 등록하였습니다.");
-                window.location.href='/myreservation';
+                let commentResponse = JSON.parse(httpRequest.responseText);
+                let commentId = commentResponse.commentId;
+                if (callback) callback(commentId);
             } else if (httpRequest.readyState === XMLHttpRequest.DONE) {
                 alert("리뷰 등록에 실패하였습니다.");
             }

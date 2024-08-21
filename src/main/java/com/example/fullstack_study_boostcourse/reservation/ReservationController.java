@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -38,15 +39,16 @@ public class ReservationController {
         CommentResponse commentResponse = reservationService
                 .addCommentToReservation(reservationInfoId, commentParamDto.getProductId(), commentParamDto.getComment(), commentParamDto.getScore());
 
+        int commentId = commentResponse.getCommentId();
+
         return ResponseEntity.ok(commentResponse);
     }
-//
-//    @PostMapping("/api/reservations/{reservationInfoId}/image")
-//    public int addImageFile(@PathVariable int reservationInfoId, @RequestParam(value = "imageFile") MultipartFile file) {
-//        int fileInfoId = commentService.insertFileInfo(file, commentService.createFileName(file));
-//        commentService.addImage(reservationInfoId, file);
-//        return fileInfoId;
-//    }
+
+    @PostMapping("/{reservationInfoId}/image")
+    public void addImageFile(@PathVariable int reservationInfoId, @RequestParam("commentId") int commentId, @RequestParam(value = "imageFile") MultipartFile file) {
+
+        reservationService.addCommentImageFile(reservationInfoId, commentId ,file);
+    }
 
     @PutMapping("/{reservationId}")
     public ResponseEntity<ReservationResponse> deleteReservation(@PathVariable("reservationId") int id) {

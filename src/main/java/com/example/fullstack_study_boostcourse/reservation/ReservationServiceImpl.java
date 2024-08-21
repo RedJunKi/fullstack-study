@@ -4,19 +4,22 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @Service
 @Transactional
 @Slf4j
 public class ReservationServiceImpl implements ReservationService {
+
+    private final String FILE_SAVE_ROUTE = "C:\\Users\\bing8\\Practice\\fullstack-study\\src\\main\\webapp\\img\\";
+    private final String FILE_SAVE_ROUTE_FOLDER = "img/";
 
     @Autowired
     private ReservationDao reservationDao;
@@ -89,5 +92,27 @@ public class ReservationServiceImpl implements ReservationService {
                 .modifyDate(dateTimeNow)
                 .commentImage(null)
                 .build();
+    }
+
+    @Override
+    public void addCommentImageFile(int reservationInfoId, int commentId, MultipartFile file) {
+        String filename = file.getOriginalFilename();
+
+        try (
+                FileOutputStream fileOutputStream = new FileOutputStream(FILE_SAVE_ROUTE + filename);
+                InputStream inputStream = file.getInputStream()
+        ) {
+            int readCount = 0;
+            byte[] buffer = new byte[1024];
+
+            while((readCount = inputStream.read(buffer)) != -1){
+                fileOutputStream.write(buffer,0, readCount);
+            }
+        } catch (Exception e) {
+            log.error("IOException log = {}", e.toString());
+        }
+
+        long fileInfoId = reservationDao.insertFileInfo(file, filename, FILE_SAVE_ROUTE_FOLDER + filename);
+        reservationDao.insertReservationUserCommentImage(reservationInfoId, fileInfoId, commentId);
     }
 }
