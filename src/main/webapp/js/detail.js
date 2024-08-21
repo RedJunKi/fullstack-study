@@ -8,7 +8,7 @@ function initViewReservationButton() {
 
     if (viewReservationButton) {
         viewReservationButton.addEventListener("click", function() {
-            location.href="/my-reservation";
+            location.href="/myreservation";
         });
         return
     }
@@ -63,12 +63,12 @@ const productImageSlider = {
         }
         slider.innerHTML = bindTemplate(imageData);
 
-//        if (displayInfoDetail.productImages.length > 1) {
-//            let firstImage = slider.children[0].cloneNode(true);
-//            let secondImage = slider.children[1].cloneNode(true);
-//            slider.appendChild(firstImage);
-//            slider.insertBefore(secondImage, slider.firstChild);
-//        }
+        if (displayInfoDetail.productImages.length > 1) {
+            let firstImage = slider.children[0].cloneNode(true);
+            let secondImage = slider.children[1].cloneNode(true);
+            slider.appendChild(firstImage);
+            slider.insertBefore(secondImage, slider.firstChild);
+        }
     },
 
     initImageSlider : function(displayInfoDetail) {

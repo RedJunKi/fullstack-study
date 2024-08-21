@@ -38,7 +38,7 @@ pageEncoding="UTF-8"%>
                         <ul class="visual_img">
                             <li class="item" style="width: 414px;"> <img alt="" id="product-image" class="img_thumb" src=""> <span class="img_bg"></span>
                                 <div class="preview_txt">
-                                    <h2 id="product-title" class="preview_txt_tit"></h2> <em class="preview_txt_dsc">₩12,000 ~ </em><em class="preview_txt_dsc">2017.2.17.(금)~2017.4.18.(화), 잔여티켓 2769매</em> </div>
+                                    <h2 id="product-title" class="preview_txt_tit"></h2> <em class="preview_txt_dsc"></em><em class="preview_txt_dsc"></em> </div>
                             </li>
                         </ul>
                     </div>
