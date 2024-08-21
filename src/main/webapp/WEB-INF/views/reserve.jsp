@@ -150,7 +150,7 @@ pageEncoding="UTF-8"%>
     </footer>
     <script type="rv-template" id="ticket-counter-template">
         {{#each productPrices}}
-        <div class="qty" data-productPriceId={{this.productPriceId}}>
+        <div class="qty" data-productpriceid={{this.productPriceId}}>
             <div class="count_control">
                 <div class="clearfix">
                     <a class="btn_plus_minus spr_book2 ico_minus3 disabled minus_button" title="빼기"> </a>

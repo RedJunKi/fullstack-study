@@ -1,5 +1,6 @@
 package com.example.fullstack_study_boostcourse.reservation;
 
+import com.example.fullstack_study_boostcourse.product.ProductDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,8 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Autowired
     private ReservationDao reservationDao;
+    @Autowired
+    private ProductDao productDao;
 
     @Override
     public List<ReservationInfo> getReservationByEmail(String email) {
@@ -31,7 +34,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationResponse addReservation(ReservationParam param) {
-
+        int totalPrice = getTotalPrice(param);
 
         ReservationInfo result = ReservationInfo.builder()
                 .productId(param.getProductId())
@@ -40,17 +43,27 @@ public class ReservationServiceImpl implements ReservationService {
                 .reservationTelephone(param.getReservationTelephone())
                 .reservationEmail(param.getReservationEmail())
                 .cancelYn(false)
+                .totalPrice(totalPrice)
                 .reservationDate(param.getReservationYearMonthDay())
                 .createDate(getCurrentDate())
                 .modifyDate(getCurrentDate())
                 .build();
 
         Long id = reservationDao.insertReservation(result);
+        param.getPrices()
+                        .forEach(p -> reservationDao.insertReservationPrice(p, id));
 
         result.setReservationInfoId(id.intValue());
 
 
         return new ReservationResponse(result);
+    }
+
+    private int getTotalPrice(ReservationParam param) {
+
+        return param.getPrices().stream()
+                .mapToInt(p -> productDao.getPrice(p.getProductPriceId()) * p.getCount())
+                .sum();
     }
 
     private static String getCurrentDate() {

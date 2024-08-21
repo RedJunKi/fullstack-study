@@ -274,6 +274,15 @@ public class ProductDao {
         return jdbc.queryForObject(sql, params, Integer.class);
     }
 
+    public Integer getPrice(Integer productPriceId) {
+        String sql = "SELECT price FROM product_price WHERE id = :productPriceId";
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("productPriceId", productPriceId);
+
+        return jdbc.queryForObject(sql, params, Integer.class);
+    }
+
     private static class DisplayInfoResponseRowMapper implements RowMapper<DisplayInfoResponse> {
         @Override
         public DisplayInfoResponse mapRow(ResultSet rs, int rowNum) throws SQLException {

@@ -17,6 +17,7 @@ class PageLoader {
                 let ticketCountInitializer = new TicketCountInitializer();
                 let agreementContainerInitializer = new AgreementContainerInitializer();
                 let submitButtonInitializer = new SubmitButtonInitializer();
+                let requestParamFactory = new RequestParamFactory();
 
                 productContainerLoader.loadProductInfo(displayInfoDetail);
                 ticketCountInitializer.initTicketCounter(displayInfoDetail);
@@ -353,10 +354,11 @@ RequestParamFactory.prototype = {
         ticketCounters.forEach(function(ticketCounter) {
             let count = ticketCounter.getElementsByClassName("count_control_input")[0].value;
 
-            let productPriceId = ticketCounter.dataset.productPriceId;
+            let productPriceId = ticketCounter.dataset.productpriceid;
+
             prices.push(new Price(count, productPriceId));
         });
-
+        console.log(prices);
         return prices;
     }
 }

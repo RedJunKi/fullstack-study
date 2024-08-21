@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -71,7 +72,12 @@ public class ReservationDao {
                 "di.email AS email, " +
                 "di.create_date AS displayCreateDate, " +
                 "di.modify_date AS displayModifyDate, " +
-                "(SELECT SUM(price) FROM product_price WHERE product_id = ri.product_id) AS totalPrice " +
+                "(" +
+                "SELECT SUM(rip.count * pp.price) " +
+                "FROM reservation_info_price rip " +
+                "JOIN product_price pp ON rip.product_price_id = pp.id " +
+                "WHERE rip.reservation_info_id = ri.id" +
+                ") AS totalPrice " +
                 "FROM reservation_info ri " +
                 "LEFT JOIN display_info di ON ri.display_info_id = di.id " +
                 "LEFT JOIN product p ON ri.product_id = p.id " +
@@ -98,6 +104,7 @@ public class ReservationDao {
         params.put("modifyDate", reservationInfo.getModifyDate());
 
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource(params);
+
         return insertAction.executeAndReturnKey(sqlParameterSource).longValue();
     }
 
@@ -195,6 +202,29 @@ public class ReservationDao {
 
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource(params);
         reservationUserCommentImageInsertAction.executeAndReturnKey(sqlParameterSource);
+    }
+
+    public void insertReservationPrice(ReservationPrice prices, long reservationId) {
+        String sql = "INSERT INTO reservation_info_price (reservation_info_id, product_price_id, count) " +
+                "VALUES (:reservationInfoId, :productPriceId, :count)";
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+
+        Integer reservationInfoId = (int) reservationId;
+        Integer productPriceId = prices.getProductPriceId();
+        Integer count = prices.getCount();
+
+        System.out.println("reservationInfoId = " + reservationInfoId);
+        System.out.println("productPriceId = " + productPriceId);
+        System.out.println("count = " + count);
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("reservationInfoId", reservationInfoId);
+        params.put("productPriceId", productPriceId);
+        params.put("count", count);
+
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource(params);
+
+        jdbc.update(sql, sqlParameterSource, keyHolder, new String[]{"id"});
     }
 
     private static class ReservationRowMapper implements RowMapper<ReservationInfo> {
