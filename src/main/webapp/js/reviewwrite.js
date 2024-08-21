@@ -76,9 +76,17 @@ ReviewWriteInitializer.prototype = {
     },
 
     countText : function() {
+        let btn = document.querySelector("#comment-submit-button");
+
         $("#comment-text-area").keyup(function(){
             let inputLength = $(this).val().length;
             $("#text-counter").text(inputLength);
+
+            if (inputLength > 400 || inputLength === 0) {
+                btn.classList.add("disable");
+            } else {
+                btn.classList.remove("disable");
+            }
         });
     }
 }
@@ -139,7 +147,14 @@ function SubmitButtonInitializer() {}
 SubmitButtonInitializer.prototype = {
     initSubmitButton : function() {
         let submitButton = document.querySelector("#comment-submit-button");
+
         submitButton.addEventListener("click", function(event) {
+
+            if (submitButton.classList.contains("disable")) {
+                alert("댓글은 1글자 이상 400글자 이하로 입력해주세요.")
+                return
+            }
+
             let reservationInfoId = extractPathVariable.getParameter("reservationInfoId");
             SubmitButtonInitializer.prototype.uploadComment(reservationInfoId);
         });

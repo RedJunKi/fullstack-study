@@ -105,7 +105,7 @@ pageEncoding="UTF-8"%>
 				<!-- //리뷰 작성 푸터 -->
 
 				<!-- 리뷰 등록 -->
-				<div id="comment-submit-button" class="box_bk_btn">
+				<div id="comment-submit-button" class="bk_btn_wrap disable">
 					<button class="bk_btn" type="button"><span class="btn_txt">리뷰 등록</span></button>
 				</div>
 				<!-- //리뷰 등록 -->
