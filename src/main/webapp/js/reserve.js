@@ -198,29 +198,24 @@ InputValidator.prototype = {
     },
 
     notValidateResponse : function() {
-        let validName = this.validateName;
-        let validPhone = this.validatePhoneNumber;
-        let validEmail = this.validateEmail;
+        let validName = this.validateName();
+        let validPhone = this.validatePhoneNumber();
+        let validEmail = this.validateEmail();
 
         if (!validName) {
             let nameField = document.querySelector("#name_warning_msg");
-            nameField.value = ""
-            nameField.placeholder = "한글 2~4자 사이로 입력해주세요";
-            nameField.classList.add("input_placeholder");
+            nameField.innerHTML = "<p class=\"waring_msg\">한글 2~4자 사이로 입력해주세요 </p>";
+
         }
 
         if (!validPhone) {
-            let phoneField = document.querySelector("#tel");
-            phoneField.value = ""
-            phoneField.placeholder = "xxx-xxxx-xxxx 같은 형식입니다";
-            phoneField.classList.add("input_placeholder");
+            let phoneField = document.querySelector("#tel_warning_msg");
+            phoneField.innerHTML = "<p class=\"waring_msg\">000-000-0000 형식으로 입력해주세요 </p>";
         }
 
         if (!validEmail) {
-            let emailField = document.querySelector("#email");
-            emailField.value = ""
-            emailField.placeholder = "xxx@xxx.xxx 같은 형식입니다";
-            emailField.classList.add("input_placeholder");
+            let emailField = document.querySelector("#email_warning_msg");
+            emailField.innerHTML = "<p class=\"waring_msg\">xxx@xxx.xxx 형식으로 입력해주세요 </p>";
         }
     }
 }

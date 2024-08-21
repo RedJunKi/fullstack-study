@@ -11,6 +11,11 @@ pageEncoding="UTF-8"%>
     <title>네이버 예약</title>
     <link href="../img/favicon.ico" rel="shortcut icon">
     <link href="../css/style.css" rel="stylesheet">
+    <style>
+        .warning_msg {
+            color : red;
+        }
+    </style>
 </head>
 
 <body>
@@ -83,7 +88,7 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
                                 <div class="inline_form"> <label class="label" for="tel"> <span class="spr_book ico_nessasary">필수</span> <span>연락처</span> </label>
-                                    <div class="inline_control tel_wrap">
+                                    <div class="inline_control">
                                         <input type="tel" name="tel" id="tel" class="tel input_placeholder" value="" placeholder="000-0000-0000" required>
                                         <div id="tel_warning_msg" class="warning_msg"></div>
                                     </div>
