@@ -1,8 +1,7 @@
 package com.example.fullstack_study_boostcourse.review;
 
-import com.example.fullstack_study_boostcourse.reservation.ReservationInfo;
-import com.example.fullstack_study_boostcourse.reservation.ReservationService;
-import jakarta.servlet.http.HttpSession;
+import com.example.fullstack_study_boostcourse.reservation.domain.ReservationInfo;
+import com.example.fullstack_study_boostcourse.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/reviewwrite")

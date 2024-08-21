@@ -164,7 +164,7 @@ InputValidator.prototype = {
         if (agreementCheck.checked && isAllValid) {
             submitButton.classList.remove("disable");
         } else {
-            InputValidator.prototype.notValidateResponse();
+//            InputValidator.prototype.notValidateResponse();
             submitButton.classList.add("disable");
         }
 

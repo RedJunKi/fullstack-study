@@ -1,8 +1,7 @@
 package com.example.fullstack_study_boostcourse.login;
 
-import com.example.fullstack_study_boostcourse.reservation.ReservationInfo;
-import com.example.fullstack_study_boostcourse.reservation.ReservationService;
-import jakarta.servlet.http.HttpServletRequest;
+import com.example.fullstack_study_boostcourse.reservation.domain.ReservationInfo;
+import com.example.fullstack_study_boostcourse.reservation.service.ReservationService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
