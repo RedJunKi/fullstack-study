@@ -155,42 +155,45 @@ InputValidator.prototype = {
         let isPhoneNumberValid = InputValidator.prototype.validatePhoneNumber();
         let isEmailValid = InputValidator.prototype.validateEmail();
 
-        return isCountValid && isNameValid && isPhoneNumberValid && isEmailValid;
+        let isAllValid = isCountValid && isNameValid && isPhoneNumberValid && isEmailValid;
+
+        let agreementCheck = document.querySelector("#chk3");
+        let submitButton = document.querySelector("#submit-button");
+
+        if (agreementCheck.checked && isAllValid) {
+            submitButton.classList.remove("disable");
+        } else {
+            InputValidator.prototype.notValidateResponse();
+            submitButton.classList.add("disable");
+        }
+
+        return isAllValid;
     },
 
     validateCount : function() {
-        let totalCountNumber = parseInt(document.querySelectorAll("#totalCount").textContent);
-        if (totalCountNumber === 0) {
-            return false;
-        }
-        return true;
+        let totalCountNumber = parseInt(document.querySelector("#totalCount").textContent);
+        return totalCountNumber > 0;
     },
 
     validateName : function() {
         const NAME_REGULAR_EXPRESSION = /^[가-힣]{2,4}$/;
         let nameField = document.querySelector("#name");
         let name = nameField.value;
-        let nameValid = (NAME_REGULAR_EXPRESSION).test(name);
-
-        return (name && nameValid);
+        return (NAME_REGULAR_EXPRESSION).test(name);
     },
 
     validatePhoneNumber : function() {
         const PHONE_NUMBER_REGULAR_EXPRESSION = /^\d{3}-\d{3,4}-\d{4}$/;
         let phoneField = document.querySelector("#tel");
         let phoneNumber = phoneField.value;
-        let phoneValid = (PHONE_NUMBER_REGULAR_EXPRESSION).test(phoneNumber);
-
-        return (phoneNumber && phoneValid);
+        return (PHONE_NUMBER_REGULAR_EXPRESSION).test(phoneNumber);
     },
 
     validateEmail : function() {
         const EMAIL_REGULAR_EXPRESSION = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
         let emailField = document.querySelector("#email");
         let email = emailField.value;
-        let emailValid = (EMAIL_REGULAR_EXPRESSION).test(email);
-
-        return (email && emailValid);
+        return (EMAIL_REGULAR_EXPRESSION).test(email);
     },
 
     notValidateResponse : function() {
@@ -227,8 +230,6 @@ AgreementContainerInitializer.prototype = {
     initAgreementButtons : function() {
         AgreementContainerInitializer.prototype.activeShowMoreButtons();
         AgreementContainerInitializer.prototype.activeSubmitButton();
-//        this.activeShowMoreButtons();
-//        this.activeSubmitButton();
     },
 
     activeShowMoreButtons : function() {
@@ -252,19 +253,46 @@ AgreementContainerInitializer.prototype = {
     },
 
     activeSubmitButton : function() {
+
         let agreementCheck = document.querySelector("#chk3");
-        let submitButton = document.querySelector("#submit-button");
+        let nameField = document.querySelector("#name");
+        let phoneField = document.querySelector("#tel");
+        let emailField = document.querySelector("#email");
+        let totalCountField = document.querySelector("#totalCount");
 
         agreementCheck.addEventListener("click", function() {
-            let isAllValid = InputValidator.prototype.validateInputs();
+            InputValidator.prototype.validateInputs();
+        });
 
-            if (agreementCheck.checked && isAllValid) {
-                submitButton.classList.remove("disable");
-            } else {
-                InputValidator.prototype.notValidateResponse();
-                submitButton.classList.add("disable");
-            }
-        })
+        nameField.addEventListener("input", function() {
+            InputValidator.prototype.validateInputs();
+        });
+
+        phoneField.addEventListener("input", function() {
+            InputValidator.prototype.validateInputs();
+        });
+
+        emailField.addEventListener("input", function() {
+            InputValidator.prototype.validateInputs();
+        });
+
+//        totalCountField.addEventListener("DOMSubtreeModified", function() {
+//            InputValidator.prototype.validateInputs();
+//        });
+
+        const callback = (mutationList, observer) => {
+            InputValidator.prototype.validateInputs();
+        };
+
+        const observer = new MutationObserver(callback);
+
+        const config = {
+            attributes: true,
+            childList: true,
+            characterData: true
+        };
+
+        observer.observe(totalCountField, config);
     }
 }
 
